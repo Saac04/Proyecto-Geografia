@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartografía - Sento Marcos Ibarra y Javier Rupérez Miranda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="./css/styles.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/icono.ico">
+</head>
+<body>
+<header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#"><i class="fas fa-globe"></i> Sento y Javier</a>
+
+        <!-- Botón para menú desplegable en pantallas pequeñas -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú de navegación -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projects"><i class="fas fa-folder-open"></i> Proyectos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pages/about_us.html"><i class="fas fa-user"></i> Sobre Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pages/explicacion.html"><i class="fas fa-info"></i> Tecnologías</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="sidebar-container">
+    <!-- Botón para abrir/cerrar -->
+    <div class="menu-toggle">
+        <i class="fas fa-chevron-right"></i>
+    </div>
+
+    <!-- Menú lateral -->
+    <div class="sidebar">
+        <a href="./pages/liveEditorAnaconda.html" class="sidebar-item">
+            <img src="./assets/Images/anaconda.svg" alt="Anaconda" class="sidebar-logo">
+            <p class="sidebar-text">Live Editor de Anaconda</p>
+        </a>
+        <a href="pages/mapview.html" class="sidebar-item">
+            <img src="./assets/Images/map.svg" alt="Mapa" class="sidebar-logo">
+            <p class="sidebar-text">Ver Proyectos en un Mapa</p>
+        </a>
+        <a href="./pages/practicas.html" class="sidebar-item">
+            <img src="./assets/Images/practices.svg" alt="Prácticas" class="sidebar-logo">
+            <p class="sidebar-text">Acceso a Prácticas</p>
+        </a>
+    </div>
+</div>
+
+
+
+
+<section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+        <h1>Portafolio de Cartografía</h1>
+        <p>Explora mis proyectos destacados de cartografía, combinando innovación y precisión.</p>
+        <a href="#projects">Ver Proyectos</a>
+    </div>
+    <!--Btn animado que indica bajar hacia abajo-->
+    <div class="scroll-down">
+        <a href="#projects">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+    </div>
+
+</section>
+
+<section class="projects container" id="projects">
+    <h2 class="text-center mb-5">Proyectos Destacados</h2>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-bar mb-4">
+        <input
+                type="text"
+                id="searchInput"
+                class="form-control"
+                placeholder="Buscar proyectos por nombre o descripción..."
+        />
+    </div>
+    <!-- Proyecto 1 -->
+    <div class="project row align-items-center mb-5" id="project1" data-name="QGIS" data-description="Introducción al uso del software QGIS en el ámbito de SIG" data-aos="fade-right">
+        <div class="col-md-6">
+            <img src="./assets/Images/QGIS_logo.png" alt="Proyecto 1" class="img-fluid rounded proyect-preview-img">
+        </div>
+        <div class="col-md-6">
+            <h3>Proyecto 1</h3>
+            <p>Introducción a QGIS</p>
+            <p>Este proyecto constituye una introducción al uso del software QGIS en el ámbito de los Sistemas de Información Geográfica (SIG).</p>
+            <button class="btn btn-primary open-modal" data-url="pages/project1.html">Ver Detalles</button>
+        </div>
+    </div>
+
+    <!-- Proyecto 3 -->
+    <div class="project row align-items-center mb-5" id="project3" data-name="Análisis de datos climáticos" data-description="Modelos predictivos de cambios climáticos y análisis de tendencias históricas" data-aos="fade-left">
+        <div class="col-md-6 order-md-2">
+            <img src="assets/Images/PRACTICA3.png" alt="Proyecto 3" class="img-fluid rounded proyect-preview-img">
+        </div>
+        <div class="col-md-6 order-md-1">
+            <h3>Proyecto 3</h3>
+            <p>Análisis de datos climáticos</p>
+            <p>Este proyecto se centra en el análisis de datos climáticos utilizando herramientas avanzadas para modelar el cambio climático y sus efectos en el entorno global.</p>
+            <button class="btn btn-primary open-modal" data-url="pages/project3.html">Ver Detalles</button>
+        </div>
+    </div>
+
+    <!-- Proyecto 4 -->
+    <div class="project row align-items-center mb-5" id="project4" data-name="Hábitat del Lobo Ibérico" data-description="Análisis territorial para áreas protegidas del Lobo Ibérico en Castilla y León" data-aos="fade-right">
+        <div class="col-md-6">
+            <img src="./assets/Images/prac4preview.png" alt="Proyecto 4" class="img-fluid rounded proyect-preview-img">
+        </div>
+        <div class="col-md-6">
+            <h3>Proyecto 4</h3>
+            <p>Hábitat del Lobo Ibérico</p>
+            <p>Identificación de zonas idóneas para la creación de un área protegida para el Lobo Ibérico en Castilla y León.</p>
+            <button class="btn btn-primary open-modal" data-url="pages/project4.html">Ver Detalles</button>
+        </div>
+    </div>
+
+    <!-- Proyecto 7 -->
+    <div class="project row align-items-center mb-5" id="project7" data-name="Análisis de Rendimiento GNSS" data-description="Procesamiento de datos GNSS con análisis de rutas y pendientes" data-aos="fade-left">
+        <div class="col-md-6 order-md-2">
+            <img src="./assets/Images/grafico_rendimiento.jpg" alt="Proyecto 7" class="img-fluid rounded">
+        </div>
+        <div class="col-md-6 order-md-1">
+            <h3>Proyecto 7</h3>
+            <p>Análisis de Rendimiento GNSS</p>
+            <p>Esta práctica se enfoca en el análisis de rendimiento utilizando datos GNSS con waypoints en formato GPX.</p>
+            <button class="btn btn-primary open-modal" data-url="pages/project7.html">Ver Detalles</button>
+        </div>
+    </div>
+
+    <!-- Proyecto 8 -->
+    <div class="project row align-items-center mb-5" id="project8" data-name="Mapas Interactivos con Folium" data-description="Mapas interactivos utilizando Folium para datos de contenedores y accidentes" data-aos="fade-right">
+        <div class="col-md-6 order">
+            <img src="./assets/Images/prject8.png" alt="Proyecto 8" class="img-fluid rounded">
+        </div>
+        <div class="col-md-6 order">
+            <h3>Proyecto 8</h3>
+            <p>Mapas Interactivos con Folium</p>
+            <p>Creación de mapas interactivos utilizando Folium para datos de contenedores y accidentes.</p>
+            <button class="btn btn-primary open-modal" data-url="pages/project8.html">Ver Detalles</button>
+        </div>
+    </div>
+
+    <!-- Proyecto 9 -->
+    <div class="project row align-items-center mb-5" id="project9" data-name="Plataforma Big Data" data-description="Plataforma de análisis para procesamiento distribuido de grandes volúmenes de datos" data-aos="fade-left">
+        <div class="col-md-6 order-md-2">
+            <img src="assets/Images/prac9.png" alt="Proyecto 9" class="img-fluid rounded">
+        </div>
+        <div class="col-md-6 order-md-1">
+            <h3>Proyecto 9</h3>
+            <p>Plataforma Big Data</p>
+            <p>Creación de una plataforma de análisis de Big Data diseñada para procesar grandes volúmenes de información en tiempo récord.</p>
+            <button class="btn btn-primary open-modal" data-url="pages/project9.html">Ver Detalles</button>
+        </div>
+    </div>
+
+    <!-- Proyecto 10 -->
+    <div class="project row align-items-center mb-5" id="project10" data-name="Google Earth Engine" data-description="Visualización y análisis de índices medioambientales con Google Earth Engine" data-aos="fade-right">
+        <div class="col-md-6 order">
+            <img src="./assets/Images/Lago_Uvs_Mongolia.jpg" alt="Proyecto 10" class="img-fluid rounded">
+        </div>
+        <div class="col-md-6 order">
+            <h3>Proyecto 10</h3>
+            <p>Google Earth Engine</p>
+            <p>Visualización y análisis de índices medioambientales con Google Earth Engine.</p>
+            <button class="btn btn-primary open-modal" data-url="pages/project10.html">Ver Detalles</button>
+        </div>
+    </div>
+</section>
+
+<div class="iframe-modal" id="iframe-modal">
+    <span class="close-btn">&times;</span>
+    <iframe src=""></iframe>
+</div>
+
+<footer>
+    <p>© 2024 Sento Marcos Ibarra y Javier Rupérez Miranda. Todos los derechos reservados.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="JS/iframes.js"></script>
+<script src="JS/sidebar.js"></script>
+
+<script src="JS/search.js"></script>
+</body>
+</html>
