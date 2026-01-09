@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjetas Burbuja de Chicle</title>
+    <link rel="stylesheet" href="css/burbuja.css">
+</head>
+<body>
+    <div class="">
+        <h1>🍬 Mis Tarjetas Burbuja 🍬</h1>
+        
+        <div class="cards-grid">
+            <div class="bubble-card" onclick="expandCard(this)">
+                <button class="close-btn" onclick="closeCard(event, this.parentElement)">×</button>
+                <div class="card-content">
+                    <h2>Tarjeta con Texto</h2>
+                    <p>Haz click para expandir y ver más contenido. Esta es una tarjeta con estilo de burbuja de chicle rosado.</p>
+                    <p style="display: none;">Este es contenido adicional que solo se muestra cuando la tarjeta está expandida. Puedes agregar toda la información que necesites aquí. ¡Es súper flexible y divertida!</p>
+                </div>
+            </div>
+
+            <div class="bubble-card" onclick="expandCard(this)">
+                <button class="close-btn" onclick="closeCard(event, this.parentElement)">×</button>
+                <div class="card-content">
+                    <h2>Tarjeta con Imagen</h2>
+                    <img src="https://images.unsplash.com/photo-1499084732479-de2c02d45fcc?w=600" alt="Imagen ejemplo">
+                </div>
+            </div>
+
+            <div class="bubble-card" onclick="expandCard(this)">
+                <button class="close-btn" onclick="closeCard(event, this.parentElement)">×</button>
+                <div class="card-content">
+                    <h2>Otra Tarjeta</h2>
+                    <p>¡Más contenido divertido! Estas tarjetas tienen un efecto suave y burbujeante.</p>
+                </div>
+            </div>
+
+            <div class="bubble-card" onclick="expandCard(this)">
+                <button class="close-btn" onclick="closeCard(event, this.parentElement)">×</button>
+                <div class="card-content">
+                    <h2>Más Imágenes</h2>
+                    <img src="https://images.unsplash.com/photo-1515041219749-89347f83291a?w=600" alt="Otra imagen">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="overlay" onclick="closeAllCards()"></div>
+
+    <script src="JS/burbujas.js"></script>
+</body>
+</html>
