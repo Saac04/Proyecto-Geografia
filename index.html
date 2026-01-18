@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,22 +8,439 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="./css/styles.css" rel="stylesheet">
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./assets/icono.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background: rgba(33, 37, 41, 0.95) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Hero section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+
+        .hero a {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .hero a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Scroll down animation */
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .scroll-down a {
+            padding: 0;
+            background: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .scroll-down span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-bottom: 3px solid white;
+            border-right: 3px solid white;
+            transform: rotate(45deg);
+            margin: -10px;
+            animation: scrollAnim 2s infinite;
+        }
+
+        .scroll-down span:nth-child(2) {
+            animation-delay: -0.2s;
+        }
+
+        .scroll-down span:nth-child(3) {
+            animation-delay: -0.4s;
+        }
+
+        @keyframes scrollAnim {
+            0% {
+                opacity: 0;
+                transform: rotate(45deg) translate(-20px, -20px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: rotate(45deg) translate(20px, 20px);
+            }
+        }
+
+        /* Projects section */
+        .projects {
+            padding: 80px 0px;
+        }
+
+        .projects h2 {
+            color: #ff1493;
+            text-shadow: 3px 3px 6px rgba(255, 20, 147, 0.3);
+            margin-bottom: 60px;
+            font-size: 2.5em;
+        }
+
+        /* Search bar */
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .search-bar input {
+            border-radius: 50px;
+            padding: 15px 25px;
+            border: 3px solid #ff69b4;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #ff1493;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        /* Bubble clusters */
+        .clusters-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .bubble-cluster {
+            position: relative;
+            width: 650px;
+            height: 650px;
+            transition: all 0.3s ease;
+        }
+
+        /* Patrón de escalera: izquierda-derecha alternado */
+        .bubble-cluster:nth-child(odd) {
+            align-self: flex-start;
+            margin-left: 0;
+        }
+
+        .bubble-cluster:nth-child(even) {
+            align-self: flex-end;
+            margin-right: 0;
+            margin-top: -200px;
+        }
+
+        .bubble {
+            position: absolute;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff99c8 100%);
+            border-radius: 50%;
+            box-shadow: 
+                0 10px 30px rgba(255, 105, 180, 0.4),
+                inset 0 -3px 10px rgba(255, 255, 255, 0.5),
+                inset 0 3px 10px rgba(255, 105, 180, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .bubble::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .bubble:hover {
+            transform: scale(1.1);
+        }
+
+        .bubble-text {
+            width: 420px;
+            height: 420px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            padding: 60px;
+        }
+
+        .bubble-text:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .bubble-text h3 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.5);
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .bubble-text p {
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+
+        .bubble-image {
+            width: 230px;
+            height: 230px;
+            top: 0;
+            right: 0;
+            z-index: 2;
+        }
+
+        .bubble-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .bubble-button {
+            width: 140px;
+            height: 140px;
+            bottom: 80px;
+            right: 50px;
+            z-index: 4;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+        }
+
+        .bubble-button:hover {
+            transform: scale(1.2);
+            box-shadow: 
+                0 15px 40px rgba(255, 20, 147, 0.6),
+                inset 0 -3px 10px rgba(255, 255, 255, 0.6);
+        }
+
+        .bubble-button span {
+            color: white;
+            font-size: 2.8em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .iframe-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .iframe-modal.active {
+            display: flex;
+        }
+
+        .iframe-modal iframe {
+            width: 90%;
+            height: 90%;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: #ff1493;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(255, 20, 147, 0.5);
+            transition: all 0.3s ease;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: #ff69b4;
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #212529;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .bubble-cluster {
+                width: 320px;
+                height: 320px;
+            }
+
+            /* En móvil, centrar todos los clusters */
+            .bubble-cluster:nth-child(odd),
+            .bubble-cluster:nth-child(even) {
+                align-self: center;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .bubble-text {
+                width: 200px;
+                height: 200px;
+                padding: 30px;
+            }
+
+            .bubble-text h3 {
+                font-size: 1.2em;
+            }
+
+            .bubble-text p {
+                font-size: 0.85em;
+            }
+
+            .bubble-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .bubble-button {
+                width: 75px;
+                height: 75px;
+            }
+
+            .bubble-button span {
+                font-size: 1.6em;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
 <header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <!-- Logo -->
         <a class="navbar-brand" href="#"><i class="fas fa-globe"></i> Sento y Javier</a>
-
-        <!-- Botón para menú desplegable en pantallas pequeñas -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <!-- Menú de navegación -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
@@ -38,45 +455,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="pages/explicacion.html"><i class="fas fa-info"></i> Tecnologías</a>
                 </li>
-
             </ul>
         </div>
     </div>
 </header>
-<!--<div class="sidebar-container">
-    <!-- Botón para abrir/cerrar >
-    <div class="menu-toggle">
-        <i class="fas fa-chevron-right"></i>
-    </div>
-
-    <!-- Menú lateral >
-    <div class="sidebar">
-        <a href="./pages/liveEditorAnaconda.html" class="sidebar-item">
-            <img src="./assets/Images/anaconda.svg" alt="Anaconda" class="sidebar-logo">
-            <p class="sidebar-text">Live Editor de Anaconda</p>
-        </a>
-        <a href="pages/mapview.html" class="sidebar-item">
-            <img src="./assets/Images/map.svg" alt="Mapa" class="sidebar-logo">
-            <p class="sidebar-text">Ver Proyectos en un Mapa</p>
-        </a>
-        <a href="./pages/practicas.html" class="sidebar-item">
-            <img src="./assets/Images/practices.svg" alt="Prácticas" class="sidebar-logo">
-            <p class="sidebar-text">Acceso a Prácticas</p>
-        </a>
-    </div>
-</div>
--->
-
-
 
 <section class="hero">
-    <div class="overlay"></div>
     <div class="hero-content">
         <h1>Portafolio de Cartografía</h1>
         <p>Explora mis proyectos destacados de cartografía, combinando innovación y precisión.</p>
         <a href="#projects">Ver Proyectos</a>
     </div>
-    <!--Btn animado que indica bajar hacia abajo-->
     <div class="scroll-down">
         <a href="#projects">
             <span></span>
@@ -84,115 +473,132 @@
             <span></span>
         </a>
     </div>
-
 </section>
 
 <section class="projects container" id="projects">
     <h2 class="text-center mb-5">Proyectos Destacados</h2>
 
-    <!-- Barra de búsqueda -->
     <div class="search-bar mb-4">
-        <input
-                type="text"
-                id="searchInput"
-                class="form-control"
-                placeholder="Buscar proyectos por nombre o descripción..."
-        />
-    </div>
-    <!-- Proyecto 1 -->
-    <div class="project row align-items-center mb-5" id="project1" data-name="QGIS" data-description="Introducción al uso del software QGIS en el ámbito de SIG" data-aos="fade-right">
-        <div class="col-md-6">
-            <img src="./assets/Images/QGIS_logo.png" alt="Proyecto 1" class="img-fluid rounded proyect-preview-img">
-        </div>
-        <div class="col-md-6">
-            <h3>Proyecto 1</h3>
-            <p>Introducción a QGIS</p>
-            <p>Este proyecto constituye una introducción al uso del software QGIS en el ámbito de los Sistemas de Información Geográfica (SIG).</p>
-            <button class="btn btn-primary open-modal" data-url="pages/project1.html">Ver Detalles</button>
-        </div>
+        <input type="text" id="searchInput" class="form-control" placeholder="Buscar proyectos por nombre o descripción..."/>
     </div>
 
-    <!-- Proyecto 3 -->
-    <div class="project row align-items-center mb-5" id="project3" data-name="Análisis de datos climáticos" data-description="Modelos predictivos de cambios climáticos y análisis de tendencias históricas" data-aos="fade-left">
-        <div class="col-md-6 order-md-2">
-            <img src="assets/Images/PRACTICA3.png" alt="Proyecto 3" class="img-fluid rounded proyect-preview-img">
+    <div class="clusters-container">
+        <!-- Proyecto 1 -->
+        <div class="bubble-cluster" data-name="QGIS" data-description="Introducción al uso del software QGIS en el ámbito de SIG" data-aos="fade-up">
+            <div class="bubble bubble-text">
+                <div>
+                    <h3>Proyecto 1</h3>
+                    <p>Introducción al uso de QGIS para análisis de información geográfica y cartografía digital.</p>
+                </div>
+            </div>
+            <div class="bubble bubble-image">
+                <img src="./assets/Images/QGIS_logo.png" alt="QGIS">
+            </div>
+            <div class="bubble bubble-button" onclick="openModal('pages/project1.html')">
+                <span>+</span>
+            </div>
         </div>
-        <div class="col-md-6 order-md-1">
-            <h3>Proyecto 3</h3>
-            <p>Análisis de datos climáticos</p>
-            <p>Este proyecto se centra en el análisis de datos climáticos utilizando herramientas avanzadas para modelar el cambio climático y sus efectos en el entorno global.</p>
-            <button class="btn btn-primary open-modal" data-url="pages/project3.html">Ver Detalles</button>
-        </div>
-    </div>
 
-    <!-- Proyecto 4 -->
-    <div class="project row align-items-center mb-5" id="project4" data-name="Hábitat del Lobo Ibérico" data-description="Análisis territorial para áreas protegidas del Lobo Ibérico en Castilla y León" data-aos="fade-right">
-        <div class="col-md-6">
-            <img src="./assets/Images/prac4preview.png" alt="Proyecto 4" class="img-fluid rounded proyect-preview-img">
+        <!-- Proyecto 3 -->
+        <div class="bubble-cluster" data-name="Análisis de datos climáticos" data-description="Modelos predictivos de cambios climáticos" data-aos="fade-up">
+            <div class="bubble bubble-text">
+                <div>
+                    <h3>Proyecto 3</h3>
+                    <p>Análisis de datos climáticos con herramientas avanzadas para modelar el cambio climático global.</p>
+                </div>
+            </div>
+            <div class="bubble bubble-image">
+                <img src="assets/Images/PRACTICA3.png" alt="Clima">
+            </div>
+            <div class="bubble bubble-button" onclick="openModal('pages/project3.html')">
+                <span>+</span>
+            </div>
         </div>
-        <div class="col-md-6">
-            <h3>Proyecto 4</h3>
-            <p>Hábitat del Lobo Ibérico</p>
-            <p>Identificación de zonas idóneas para la creación de un área protegida para el Lobo Ibérico en Castilla y León.</p>
-            <button class="btn btn-primary open-modal" data-url="pages/project4.html">Ver Detalles</button>
-        </div>
-    </div>
 
-    <!-- Proyecto 7 -->
-    <div class="project row align-items-center mb-5" id="project7" data-name="Análisis de Rendimiento GNSS" data-description="Procesamiento de datos GNSS con análisis de rutas y pendientes" data-aos="fade-left">
-        <div class="col-md-6 order-md-2">
-            <img src="./assets/Images/grafico_rendimiento.jpg" alt="Proyecto 7" class="img-fluid rounded">
+        <!-- Proyecto 4 -->
+        <div class="bubble-cluster" data-name="Hábitat del Lobo Ibérico" data-description="Análisis territorial para áreas protegidas" data-aos="fade-up">
+            <div class="bubble bubble-text">
+                <div>
+                    <h3>Proyecto 4</h3>
+                    <p>Identificación de zonas idóneas para áreas protegidas del Lobo Ibérico en Castilla y León.</p>
+                </div>
+            </div>
+            <div class="bubble bubble-image">
+                <img src="./assets/Images/prac4preview.png" alt="Lobo">
+            </div>
+            <div class="bubble bubble-button" onclick="openModal('pages/project4.html')">
+                <span>+</span>
+            </div>
         </div>
-        <div class="col-md-6 order-md-1">
-            <h3>Proyecto 7</h3>
-            <p>Análisis de Rendimiento GNSS</p>
-            <p>Esta práctica se enfoca en el análisis de rendimiento utilizando datos GNSS con waypoints en formato GPX.</p>
-            <button class="btn btn-primary open-modal" data-url="pages/project7.html">Ver Detalles</button>
-        </div>
-    </div>
 
-    <!-- Proyecto 8 -->
-    <div class="project row align-items-center mb-5" id="project8" data-name="Mapas Interactivos con Folium" data-description="Mapas interactivos utilizando Folium para datos de contenedores y accidentes" data-aos="fade-right">
-        <div class="col-md-6 order">
-            <img src="./assets/Images/prject8.png" alt="Proyecto 8" class="img-fluid rounded">
+        <!-- Proyecto 7 -->
+        <div class="bubble-cluster" data-name="Análisis de Rendimiento GNSS" data-description="Procesamiento de datos GNSS con análisis de rutas" data-aos="fade-up">
+            <div class="bubble bubble-text">
+                <div>
+                    <h3>Proyecto 7</h3>
+                    <p>Análisis de rendimiento con datos GNSS utilizando waypoints en formato GPX para rutas precisas.</p>
+                </div>
+            </div>
+            <div class="bubble bubble-image">
+                <img src="./assets/Images/grafico_rendimiento.jpg" alt="GNSS">
+            </div>
+            <div class="bubble bubble-button" onclick="openModal('pages/project7.html')">
+                <span>+</span>
+            </div>
         </div>
-        <div class="col-md-6 order">
-            <h3>Proyecto 8</h3>
-            <p>Mapas Interactivos con Folium</p>
-            <p>Creación de mapas interactivos utilizando Folium para datos de contenedores y accidentes.</p>
-            <button class="btn btn-primary open-modal" data-url="pages/project8.html">Ver Detalles</button>
-        </div>
-    </div>
 
-    <!-- Proyecto 9 -->
-    <div class="project row align-items-center mb-5" id="project9" data-name="Plataforma Big Data" data-description="Plataforma de análisis para procesamiento distribuido de grandes volúmenes de datos" data-aos="fade-left">
-        <div class="col-md-6 order-md-2">
-            <img src="assets/Images/prac9.png" alt="Proyecto 9" class="img-fluid rounded">
+        <!-- Proyecto 8 -->
+        <div class="bubble-cluster" data-name="Mapas Interactivos con Folium" data-description="Mapas interactivos con Folium" data-aos="fade-up">
+            <div class="bubble bubble-text">
+                <div>
+                    <h3>Proyecto 8</h3>
+                    <p>Creación de mapas interactivos utilizando Folium para visualización de contenedores y accidentes.</p>
+                </div>
+            </div>
+            <div class="bubble bubble-image">
+                <img src="./assets/Images/prject8.png" alt="Folium">
+            </div>
+            <div class="bubble bubble-button" onclick="openModal('pages/project8.html')">
+                <span>+</span>
+            </div>
         </div>
-        <div class="col-md-6 order-md-1">
-            <h3>Proyecto 9</h3>
-            <p>Plataforma Big Data</p>
-            <p>Creación de una plataforma de análisis de Big Data diseñada para procesar grandes volúmenes de información en tiempo récord.</p>
-            <button class="btn btn-primary open-modal" data-url="pages/project9.html">Ver Detalles</button>
-        </div>
-    </div>
 
-    <!-- Proyecto 10 -->
-    <div class="project row align-items-center mb-5" id="project10" data-name="Google Earth Engine" data-description="Visualización y análisis de índices medioambientales con Google Earth Engine" data-aos="fade-right">
-        <div class="col-md-6 order">
-            <img src="./assets/Images/Lago_Uvs_Mongolia.jpg" alt="Proyecto 10" class="img-fluid rounded">
+        <!-- Proyecto 9 -->
+        <div class="bubble-cluster" data-name="Plataforma Big Data" data-description="Análisis distribuido de grandes volúmenes de datos" data-aos="fade-up">
+            <div class="bubble bubble-text">
+                <div>
+                    <h3>Proyecto 9</h3>
+                    <p>Plataforma Big Data diseñada para procesar grandes volúmenes de información en tiempo récord.</p>
+                </div>
+            </div>
+            <div class="bubble bubble-image">
+                <img src="assets/Images/prac9.png" alt="Big Data">
+            </div>
+            <div class="bubble bubble-button" onclick="openModal('pages/project9.html')">
+                <span>+</span>
+            </div>
         </div>
-        <div class="col-md-6 order">
-            <h3>Proyecto 10</h3>
-            <p>Google Earth Engine</p>
-            <p>Visualización y análisis de índices medioambientales con Google Earth Engine.</p>
-            <button class="btn btn-primary open-modal" data-url="pages/project10.html">Ver Detalles</button>
+
+        <!-- Proyecto 10 -->
+        <div class="bubble-cluster" data-name="Google Earth Engine" data-description="Análisis de índices medioambientales" data-aos="fade-up">
+            <div class="bubble bubble-text">
+                <div>
+                    <h3>Proyecto 10</h3>
+                    <p>Visualización y análisis de índices medioambientales utilizando Google Earth Engine.</p>
+                </div>
+            </div>
+            <div class="bubble bubble-image">
+                <img src="./assets/Images/Lago_Uvs_Mongolia.jpg" alt="Earth Engine">
+            </div>
+            <div class="bubble bubble-button" onclick="openModal('pages/project10.html')">
+                <span>+</span>
+            </div>
         </div>
     </div>
 </section>
 
 <div class="iframe-modal" id="iframe-modal">
-    <span class="close-btn">&times;</span>
+    <span class="close-btn" onclick="closeModal()">&times;</span>
     <iframe src=""></iframe>
 </div>
 
@@ -202,9 +608,51 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<script src="JS/iframes.js"></script>
-<script src="JS/sidebar.js"></script>
+<script>
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
 
-<script src="JS/search.js"></script>
+    // Modal functionality
+    function openModal(url) {
+        const modal = document.getElementById('iframe-modal');
+        const iframe = modal.querySelector('iframe');
+        iframe.src = url;
+        modal.classList.add('active');
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('iframe-modal');
+        const iframe = modal.querySelector('iframe');
+        iframe.src = '';
+        modal.classList.remove('active');
+    }
+
+    // Close with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const clusters = document.querySelectorAll('.bubble-cluster');
+
+        clusters.forEach(cluster => {
+            const name = cluster.getAttribute('data-name').toLowerCase();
+            const description = cluster.getAttribute('data-description').toLowerCase();
+
+            if (name.includes(searchTerm) || description.includes(searchTerm)) {
+                cluster.classList.remove('hidden');
+            } else {
+                cluster.classList.add('hidden');
+            }
+        });
+    });
+</script>
 </body>
 </html>
