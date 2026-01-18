@@ -10,28 +10,25 @@
     <style>
         body {
             font-family: 'IBM Plex Mono', monospace;
-            background-color: #1a1a1a;
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
             color: white;
             margin: 0;
             padding: 20px;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            background: rgba(26, 26, 26, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-            padding: 20px;
-        }
+
 
         .header {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #00d4ff;
+            background-color: #ffb9e9;
+            color: #ffffff;
+            text-shadow: 3px 3px 6px rgba(90, 2, 49, 0.3);
+
             padding: 30px;
             text-align: center;
-            border-radius: 10px;
-            margin-top: 30px;
+            border-radius: 40px;
+            margin-top: 50px;
+            margin-left: 110px;
+            margin-right: 110px;
         }
 
         .header h1 {
@@ -42,21 +39,35 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             margin-top: 20px;
+            margin-left: 110px;
+            margin-right: 110px;
+ 
         }
 
-        .chip {
+        .chip{
             display: flex;
             align-items: center;
             padding: 10px 20px;
             border-radius: 20px;
-            background: linear-gradient(45deg, #00d4ff, #009ecc);
+            background: linear-gradient(45deg, #ff88ef);
             color: white;
             font-weight: bold;
             text-transform: uppercase;
             font-size: 0.9rem;
-            box-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
+            cursor: default;
+        }
+        .chip2{
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #8accff);
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
             cursor: default;
         }
 
@@ -67,7 +78,27 @@
 
         .section {
             margin-top: 30px;
+            
         }
+
+        .contenedor {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        }
+
+        .texto {
+        flex: 1; /* Ocupa la mitad */
+        }
+
+        .imagen {
+        flex: 1; /* Ocupa la otra mitad */
+        }
+        .imagen img {
+             width: 100%;
+         height: auto;
+         object-fit: cover; /* Mantiene proporciones sin deformar */
+        }             
 
         .section h2 {
             color: #00d4ff;
@@ -128,16 +159,19 @@
         }
 
         .footer {
-            background: #1a1a1a;
+            background: #ab64f1;
             padding: 15px;
             text-align: center;
             font-size: 0.9rem;
             color: white;
             margin-top: 30px;
+            border-radius: 10px;
+            margin-left: 70px;
+            margin-right: 70px;
         }
 
         .footer a {
-            color: #00d4ff;
+            color: #ffb9e9;
             text-decoration: none;
             font-weight: bold;
         }
@@ -252,19 +286,71 @@
         <h1>Tecnologías Utilizadas</h1>
         <p>Un recorrido completo por las herramientas y lenguajes que han dado vida a este proyecto</p>
         <div class="chips-container">
-            <div class="chip"><i class="fab fa-python"></i>Python</div>
-            <div class="chip"><i class="fab fa-js"></i>JavaScript</div>
-            <div class="chip"><i class="fab fa-html5"></i>HTML</div>
-            <div class="chip"><i class="fab fa-css3-alt"></i>CSS</div>
-            <div class="chip"><i class="fas fa-map"></i>Leaflet.js</div>
-            <div class="chip"><i class="fas fa-project-diagram"></i>QGIS</div>
+            <div class="chip2"><i class="fas fa-project-diagram"></i>QGIS</div>
             <div class="chip"><i class="fas fa-box-open"></i>Anaconda</div>
+            <div class="chip2"><i class="fas fa-map"></i>Leaflet.js</div>
             <div class="chip"><i class="fas fa-globe"></i>Google Earth Engine</div>
-            <div class="chip"><i class="fab fa-bootstrap"></i>Bootstrap</div>
+            <div class="chip2"><i class="fab fa-html5"></i>HTML</div>
+            <div class="chip"><i class="fab fa-css3-alt"></i>CSS</div>
+            <div class="chip2"><i class="fab fa-bootstrap"></i>Bootstrap</div>
+            <div class="chip"><i class="fab fa-js"></i>JavaScript</div>
+            <div class="chip2"><i class="fab fa-python"></i>Python</div>
         </div>
     </div>
+<div class="section">
+  <!-- Sección 1 -->
+        <div class="tool">
+        <h2>1. QGIS</h2>
+        <div class="contenedor">
+        <div class="texto">
+    <p>QGIS es un software libre y de código abierto para Sistemas de Información Geográfica (SIG) que permite visualizar, crear, editar, analizar y gestionar datos espaciales y georreferenciados.
+     aporta herramientas para trabajar con mapas y capas de información geográfica, realizar análisis territoriales complejos, procesar datos vectoriales y ráster, crear cartografía de calidad profesional, y conectar con bases de datos espaciales y servicios web de mapas. 
+       </p>
+            </div>
+            <div class="imagen">
+                <img src="../assets/Images/QGIS_logo.png" alt="QGIS_logo">
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección 2 -->
+    <div class="tool">
+        <h2>2. Anaconda</h2>
+        <p>
+            Anaconda es una distribución de Python que incluye cientos de bibliotecas científicas y herramientas para
+            la gestión de entornos. Fue utilizada en este proyecto para crear un entorno controlado donde todas las dependencias
+            necesarias para el desarrollo funcionaron perfectamente.
+        </p>
+    </div>
+     <!-- Sección 1 -->
+        <div class="tool">
+        <h2>3. Leaflet</h2>
+        <div class="contenedor">
+        <div class="texto">
+      <p>
+
+        Leaflet.js es una biblioteca JavaScript de código abierto que permite crear mapas interactivos en páginas web de manera sencilla y ligera. Con ella podemos integrar mapas de diferentes proveedores, añadir marcadores personalizados, dibujar geometrías y mostrar información mediante popups. Es fácil de aprender, funciona en cualquier dispositivo y se ha convertido en una de las herramientas más populares para desarrollar aplicaciones web con mapas interactivos.
+    </p>
+            </div>
+            <div class="imagen">
+                <img src="../assets/Images/QGIS_logo.png" alt="QGIS_logo">
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección 2 -->
+    <div class="tool">
+        <h2>3. Leaflet.JS</h2>
+        
+        <p>
+        Leaflet.js es una biblioteca JavaScript de código abierto que nos permite crear mapas interactivos en páginas web de forma sencilla y ligera. Con ella podemos integrar mapas de diferentes proveedores como OpenStreetMap, añadir marcadores personalizados, dibujar polígonos y líneas, y mostrar información mediante popups cuando el usuario interactúa con el mapa. Es muy fácil de aprender y usar gracias a su documentación clara, funciona perfectamente en móviles y ordenadores, y admite datos en formato GeoJSON. 
+        Por todo esto se ha convertido en una de las herramientas más utilizadas para desarrollar aplicaciones web con mapas interactivos.
+        </p>
+    </div>
+
+
     <!-- Sección 1 -->
-    <div class="section">
+   
         <div class="tool">
         <h2>1. Google Earth Engine</h2>
         <p>
@@ -295,33 +381,7 @@
                 <img src="../assets/Images/folium.png" alt="Folium">
             </div>
         </div>
-
-    <!-- Sección 3 -->
-        <div class="tool">
-        <h2>3. Anaconda</h2>
-        <p>
-            Anaconda es una distribución de Python que incluye cientos de bibliotecas científicas y herramientas para
-            la gestión de entornos. Fue utilizada en este proyecto para crear un entorno controlado donde todas las dependencias
-            necesarias para el desarrollo funcionaron perfectamente.
-        </p>
-        </div>
-
-    <!-- Sección 4 -->
-        <div class="tool">
-        <h2>4. QGIS</h2>
-        <p>
-            QGIS, un software de código abierto para sistemas de información geográfica (SIG), permitió editar, analizar y
-            procesar datos geoespaciales antes de integrarlos en los mapas interactivos y cálculos realizados con Python.
-        </p>
-    </div>
-        <div class="tool">
-        <h2>Funcionalidades de la Web</h2>
-        <p>
-            Este proyecto web ha sido diseñado con un enfoque interactivo y educativo, integrando herramientas y tecnologías avanzadas para
-            facilitar el aprendizaje y la toma de decisiones en entornos geoespaciales. A continuación, se detallan las principales funcionalidades
-            que ofrece la web:
-        </p>
-        </div>
+    
         <!-- Mapa Interactivo -->
         <div class="feature">
             <h3>Mapa Interactivo con Puntos de Interés</h3>
@@ -373,7 +433,7 @@
 
     <!-- Footer -->
     <div class="footer">
-        <p>Proyecto Cartografía - 2025</p>
+        <p>Proyecto de Cartografía - 2026</p>
         <a href="#">Política de Privacidad</a> | <a href="#">Términos de Uso</a>
     </div>
 
