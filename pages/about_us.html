@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,34 +9,54 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
+        * {
             margin: 0;
-            margin-top: 75px !important;
             padding: 0;
-            font-family: 'IBM Plex Mono', monospace;
-            background-color: #1a1a1a;
-            color: white;
-            overflow-x: hidden;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            box-sizing: border-box;
         }
 
-        .light-theme {
-            background-color: #f0f0f0;
-            color: #1a1a1a;
+        html {
+            overflow-x: hidden;
         }
-        body.fade-out {
-            opacity: 0;
-            transform: scale(0.95);
+
+        body {
+            margin-top: 75px !important;
+            font-family: 'IBM Plex Mono', monospace;
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
+
+        /* Navbar styles */
+        .navbar {
+            background: rgba(33, 37, 41, 0.95) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Hero section */
         .hero {
+            position: relative;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg') no-repeat center center/cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
         }
 
         .hero .overlay {
@@ -45,7 +65,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.3);
             z-index: 1;
         }
 
@@ -56,8 +76,10 @@
         }
 
         .hero-content h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
+            font-weight: 700;
             margin-bottom: 20px;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
         }
 
         .hero-content p {
@@ -66,189 +88,129 @@
         }
 
         .hero-content a {
-            padding: 10px 20px;
+            padding: 15px 40px;
             font-size: 1.2rem;
             text-decoration: none;
-            background-color: #00d4ff;
-            color: #1a1a1a;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            background: white;
+            color: #667eea;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
 
         .hero-content a:hover {
-            background-color: #009ecc;
-        }
-        .theme-toggle {
-            color: white !important;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(26, 26, 26, 0.9);
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        /* About Us Section */
+        .about-us {
+            padding: 80px 20px;
         }
 
-        header .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-        }
-
-        header nav {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        header nav a {
-            text-decoration: none;
-            color: white;
-            transition: color 0.3s ease-in-out;
-        }
-
-        header nav a:hover {
-            color: #00d4ff;
-        }
-
-        header .theme-toggle {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        /* Ajuste del logo y navegación en dispositivos pequeños */
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        /* El botón de cambio de tema queda alineado en el menú */
-        .theme-toggle {
-            color: white !important;
-            transition: color 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            color: #00d4ff !important;
-        }
-
-        /* Espaciado interno en el menú colapsable */
-        .navbar-nav .nav-link {
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #00d4ff;
-        }
-        .sidebar {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 80px;
-            height: calc(100% - 60px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0;
-            gap: 20px;
-            background: rgba(26, 26, 26, 0.9);
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .sidebar a {
-            text-decoration: none;
-            color: white;
-            font-size: 14px;
+        .about-us h2 {
+            color: #ff1493;
+            text-shadow: 3px 3px 6px rgba(255, 20, 147, 0.3);
+            margin-bottom: 60px;
+            font-size: 2.5em;
             text-align: center;
-            padding: 10px;
-            width: 100%;
-            transition: background 0.3s ease, transform 0.3s ease;
         }
 
-        .sidebar a:hover {
-            background: #00d4ff;
-            color: #1a1a1a;
-            transform: scale(1.1);
+        .about-us h3 {
+            color: #ff1493;
+            text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.3);
+            font-size: 2em;
+            margin-bottom: 20px;
         }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #1a1a1a;
-            color: #d0d0d0;
+        .about-us p {
+            color: #333;
+            line-height: 1.8;
+            font-size: 1.05em;
+            margin-bottom: 15px;
         }
 
-        .light-theme footer {
-            background: #f0f0f0;
-            color: #1a1a1a;
+        .about-us .row {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff99c8 100%);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 
+                0 10px 30px rgba(255, 105, 180, 0.4),
+                inset 0 -3px 10px rgba(255, 255, 255, 0.5),
+                inset 0 3px 10px rgba(255, 105, 180, 0.3);
+            transition: all 0.3s ease;
         }
 
-        .projects .project img {
-            transition: transform 0.3s ease;
+        .about-us .row:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 20px 50px rgba(255, 105, 180, 0.5),
+                inset 0 -3px 10px rgba(255, 255, 255, 0.6),
+                inset 0 3px 10px rgba(255, 105, 180, 0.4);
         }
 
-        .projects .project img:hover {
-            transform: scale(1.05);
+        .about-us .row h3 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.5);
         }
 
-        .iframe-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
+        .about-us .row p {
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        .iframe-modal.active {
-            opacity: 1;
-            pointer-events: auto;
+        .rounded-circle {
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .iframe-modal iframe {
-            width: 80%;
-            height: 80%;
+        .btn-outline-light {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .iframe-modal .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
+        .btn-outline-light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.5);
             color: white;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
         }
-        .proyect-preview-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
+
+        /* Footer */
+        footer {
+            background: #212529;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .about-us .row {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
-<link rel="icon" type="image/png" href="../assets/icono.ico">
-
 <body>
     <header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
@@ -258,27 +220,33 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html"><i class="fas fa-home"></i> Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html#projects"><i class="fas fa-folder-open"></i> Proyectos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about_us.html"><i class="fas fa-user"></i> Sobre Nosotros</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="explicacion.html"><i class="fas fa-info"></i> Tecnologías</a>
-                        </li>
-
-                    </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html"><i class="fas fa-home"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html#projects"><i class="fas fa-folder-open"></i> Proyectos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about_us.html"><i class="fas fa-user"></i> Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="explicacion.html"><i class="fas fa-info"></i> Tecnologías</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </header>
 
-    <section class="about-us container">
+    <section class="hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1>Sobre Nosotros</h1>
+            <p>Conoce al equipo detrás de los proyectos</p>
+            <a href="#about">Descubre más</a>
+        </div>
+    </section>
+
+    <section class="about-us container" id="about">
         <h2>Sobre Nosotros</h2>
         <div class="row align-items-center mb-5" data-aos="fade-right">
             <div class="col-md-4 text-center">
@@ -329,7 +297,6 @@
         </div>
     </section>
     
-    
     <footer>
         <p>© 2026 Santiago Aguirre, Cesar Herrero San Juan y Adenor Buret. Todos los derechos reservados.</p>
     </footer>
@@ -337,7 +304,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init();
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
     </script>
 </body>
 </html>
