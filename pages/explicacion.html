@@ -10,7 +10,7 @@
     <style>
         body {
             font-family: 'IBM Plex Mono', monospace;
-            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+            background: linear-gradient(135deg, #ffe7ea 0%, #ee9cc9 100%);
             color: white;
             margin: 0;
             padding: 20px;
@@ -101,21 +101,21 @@
         }             
 
         .section h2 {
-            color: #00d4ff;
+            color: #ffffff;
             margin-bottom: 15px;
             font-size: 2rem;
-            text-shadow: 0 4px 10px rgba(0, 212, 255, 0.3);
-            border-bottom: 2px solid #00d4ff;
+            text-shadow: #ff88ef;
+            border-bottom: 2px solid #ffffff;
             padding-bottom: 5px;
         }
 
         .tool:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.8);
+            box-shadow: 0 6px 20px rgba(255, 96, 226, 0.8);
         }
 
         .tool h3 {
-            color: #00d4ff;
+            color: #ffffff;
             font-size: 1.8rem;
             margin-bottom: 10px;
         }
@@ -127,9 +127,9 @@
         .tool {
             margin-top: 20px;
             padding: 20px;
-            background-color: rgba(26, 26, 26, 0.9);
+            background-color: #ffb9e9;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: #ff88ef;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .section p, .section ul {
@@ -154,7 +154,7 @@
             width: 80%;
             max-width: 600px;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+            box-shadow:#ff88ef;
             margin-bottom: 20px;
         }
 
@@ -185,7 +185,7 @@
             font-size: 0.9rem;
             padding: 10px 20px;
             border-radius: 5px;
-            background-color: #00d4ff;
+            background-color: #ffffff;
             color: #1a1a1a;
             border: none;
         }
@@ -198,13 +198,13 @@
             padding: 20px;
             background-color: rgba(26, 26, 26, 0.9);
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: #ff88ef;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .feature:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.8);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.8);
         }
 
         .feature h3 {
@@ -237,13 +237,13 @@
             width: 80%;
             max-width: 600px;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            box-shadow: #ff88ef;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .img-container img:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.8);
+            box-shadow: #ff88ef;
         }
 
     </style>
@@ -322,114 +322,92 @@
             necesarias para el desarrollo funcionaron perfectamente.
         </p>
     </div>
-     <!-- Sección 1 -->
+     <!-- Sección 3 -->
         <div class="tool">
-        <h2>3. Leaflet</h2>
-        <div class="contenedor">
-        <div class="texto">
-      <p>
-
-        Leaflet.js es una biblioteca JavaScript de código abierto que permite crear mapas interactivos en páginas web de manera sencilla y ligera. Con ella podemos integrar mapas de diferentes proveedores, añadir marcadores personalizados, dibujar geometrías y mostrar información mediante popups. Es fácil de aprender, funciona en cualquier dispositivo y se ha convertido en una de las herramientas más populares para desarrollar aplicaciones web con mapas interactivos.
-    </p>
-            </div>
-            <div class="imagen">
-                <img src="../assets/Images/QGIS_logo.png" alt="QGIS_logo">
-            </div>
-        </div>
-    </div>
-
-    <!-- Sección 2 -->
-    <div class="tool">
         <h2>3. Leaflet.JS</h2>
-        
-        <p>
-        Leaflet.js es una biblioteca JavaScript de código abierto que nos permite crear mapas interactivos en páginas web de forma sencilla y ligera. Con ella podemos integrar mapas de diferentes proveedores como OpenStreetMap, añadir marcadores personalizados, dibujar polígonos y líneas, y mostrar información mediante popups cuando el usuario interactúa con el mapa. Es muy fácil de aprender y usar gracias a su documentación clara, funciona perfectamente en móviles y ordenadores, y admite datos en formato GeoJSON. 
-        Por todo esto se ha convertido en una de las herramientas más utilizadas para desarrollar aplicaciones web con mapas interactivos.
-        </p>
+        <div class="contenedor">
+            <div class="imagen">
+                <img src="../assets/Images/Leaflet.png" alt="Leaflet_logo">
+            </div>
+        <div class="texto">
+            <p>
+            Leaflet.js es una biblioteca JavaScript de código abierto que permite crear mapas interactivos en páginas web de manera sencilla y ligera. Con ella podemos integrar mapas de diferentes proveedores, añadir marcadores personalizados, dibujar geometrías y mostrar información mediante popups. Es fácil de aprender, funciona en cualquier dispositivo y se ha convertido en una de las herramientas más populares para desarrollar aplicaciones web con mapas interactivos.
+            </p>
+        </div>
+            
+        </div>
+        <h2> Folium</h2>
+            <p>
+               Folium es una herramienta de Python que facilita la generación de mapas web interactivos basados en Leaflet.js.
+            En este proyecto se desarrollaron visualizaciones cartográficas dinámicas que presentan los resultados del análisis espacial
+            de forma clara e intuitiva. Se emplearon iconos diferenciados en cada punto de interés para resaltar la información más relevante del estudio.
+            </p>
+            <ul>
+                <li>Representación cartográfica de información meteorológica</li>
+                <li>Visualización multicapa con datos georreferenciados</li>
+                <li>Señalización de ubicaciones significativas</li>
+            </ul>
     </div>
 
-
-    <!-- Sección 1 -->
+    <!-- Sección 4 -->
    
         <div class="tool">
-        <h2>1. Google Earth Engine</h2>
+        <h2>4. Google Earth Engine</h2>
         <p>
-            Google Earth Engine (GEE) es una plataforma basada en la nube que permite analizar imágenes satelitales y otros
-            conjuntos de datos geoespaciales a gran escala. En este proyecto, se utilizó para calcular índices
-            medioambientales como el NDWI y MNDWI. Sus capacidades de procesamiento masivo facilitaron la exportación
-            de imágenes GeoTIFF de alta precisión.
+          Google Earth Engine (GEE) es una plataforma cloud que ofrece capacidades de procesamiento y análisis de datos satelitales y geoespaciales a nivel global. Para este trabajo se empleó en el cálculo de indicadores ambientales como NDWI y MNDWI. Gracias a su potencia de cómputo distribuido, permitió generar y exportar imágenes en formato GeoTIFF con alta calidad y precisión espacial.
         </p>
         <div class="img-container">
-            <img src="../assets/Images/GEE.png" alt="Google Earth Engine">
+            <img src="../assets/Images/Google-Earth-Studio.jpg" alt="Google Earth Engine">
         </div>
     </div>
-    <!-- Sección 2 -->
 
-        <div class="tool">
-            <h2>2. Folium</h2>
-            <p>
-                Folium es una biblioteca de Python que permite crear mapas interactivos utilizando Leaflet.js.
-                Aquí se integraron mapas personalizados para visualizar resultados de análisis geoespacial en un entorno dinámico y
-                fácil de usar. Cada marcador fue generado con iconos personalizados para destacar los puntos clave del análisis.
-            </p>
-            <ul>
-                <li>Visualización de datos climáticos</li>
-                <li>Mapa interactivo con capas superpuestas</li>
-                <li>Marcadores de eventos importantes</li>
-            </ul>
-            <div class="img-container">
-                <img src="../assets/Images/folium.png" alt="Folium">
-            </div>
-        </div>
     
         <!-- Mapa Interactivo -->
-        <div class="feature">
+        <div class="tool">
+            <div>
             <h3>Mapa Interactivo con Puntos de Interés</h3>
             <p>
-                La web incluye un mapa interactivo, construido con <b>Leaflet.js</b>, que permite explorar y visualizar puntos de interés
-                georreferenciados. Cada marcador contiene información relevante y enlaces directos a cuadernillos o datos relacionados.
-                Además, se incorporan herramientas avanzadas, como:
-            </p>
-            <ul>
-                <li>Medición de áreas y distancias.</li>
-                <li>Cambio dinámico de vistas (satelital, topográfica, etc.).</li>
-                <li>Agrupación de marcadores mediante clusters para una navegación eficiente.</li>
-            </ul>
-            <div class="img-container">
-                <img src="../assets/Images/map.png" alt="Mapa Interactivo">
+               El sitio web integra un mapa interactivo desarrollado con Leaflet.js que facilita la exploración y visualización de ubicaciones georreferenciadas de interés. Los marcadores incluyen datos descriptivos y accesos directos a cuadernos de trabajo o información complementaria. También se han implementado funcionalidades avanzadas como:
+             </p>
             </div>
+            <div class = "contenedor">
+            <div class = "texto">
+            <ul>
+                <li> Cálculo de superficies y mediciones de distancia.</li>
+                <li>Alternancia entre diferentes capas base (vista satélite, cartografía topográfica, etc.).</li>
+                <li>Sistema de clustering para agrupar marcadores y optimizar la experiencia de navegación.</li>
+            </ul> 
+            </div>
+            <div class="imagen">
+                <img src="../assets/Images/mapa_interactivo.jpg" alt="Mapa Interactivo">
+            </div>
+            </div>
+           
         </div>
 
-        <!-- Visor Interactivo con Anaconda -->
-        <div class="feature">
+         <!-- Mapa Interactivo -->
+        <div class="tool">
+            <div>
             <h3>Visor Interactivo con Anaconda</h3>
             <p>
-                Gracias a la integración con <b>Anaconda</b>, es posible ejecutar notebooks interactivos directamente en la web.
-                Esto permite a los usuarios explorar y modificar el código, obteniendo resultados en tiempo real sin necesidad
-                de configuración adicional. Este visor es ideal para:
-            </p>
-            <ul>
-                <li>Procesamiento de datos GNSS.</li>
-                <li>Generación de mapas personalizados.</li>
-                <li>Ejecutar scripts relacionados con índices medioambientales.</li>
-            </ul>
-            <div class="img-container">
-                <img src="../assets/Images/anaconda_viewer.png" alt="Visor Anaconda">
+               La integración con Anaconda posibilita la ejecución de cuadernos interactivos directamente desde el navegador. Los usuarios pueden explorar, editar y ejecutar código obteniendo resultados inmediatos sin requerir instalaciones previas ni configuraciones complejas. Esta funcionalidad resulta especialmente útil para:
+             </p>
             </div>
+            <div class = "contenedor"> 
+                <div class="imagen">
+                <img src="../assets/Images/anaconda_viewer.png" alt="Mapa Interactivo">
+                </div>
+            <div class = "texto">
+          <ul>
+                <li> Análisis y tratamiento de información GNSS.</li>
+                <li>Creación de cartografía adaptada a necesidades específicas.</li>
+                <li>Desarrollo de scripts para calcular indicadores ambientales.</li>
+            </ul>
+            </div>
+           
+            </div>
+           
         </div>
-
-        <!-- Exportación de Datos -->
-        <div class="feature">
-            <h3>Exportación de Datos GeoTIFF</h3>
-            <p>
-                Una funcionalidad clave de la web es la capacidad de exportar resultados en formato <b>GeoTIFF</b>. Los usuarios pueden seleccionar
-                áreas específicas en el mapa, calcular índices medioambientales como NDWI o MNDWI, y descargar las imágenes procesadas.
-                Esto facilita la integración con herramientas SIG como QGIS o ArcGIS.
-            </p>
-        </div>
-
-
-    </div>
 
     <!-- Footer -->
     <div class="footer">
