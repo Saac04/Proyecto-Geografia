@@ -3,51 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarjetas Burbuja de Chicle</title>
-    <link rel="stylesheet" href="css/burbuja.css">
+    <title>Clusters de Burbujas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff1493;
+            text-shadow: 3px 3px 6px rgba(255, 20, 147, 0.3);
+            margin-bottom: 60px;
+            font-size: 2.5em;
+        }
+
+        .clusters-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 80px;
+            justify-content: center;
+        }
+
+        /* Cluster individual */
+        .bubble-cluster {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            transition: all 0.3s ease;
+        }
+
+        /* Burbuja base */
+        .bubble {
+            position: absolute;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff99c8 100%);
+            border-radius: 50%;
+            box-shadow: 
+                0 10px 30px rgba(255, 105, 180, 0.4),
+                inset 0 -3px 10px rgba(255, 255, 255, 0.5),
+                inset 0 3px 10px rgba(255, 105, 180, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .bubble::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .bubble:hover {
+            transform: scale(1.1);
+        }
+
+        /* Burbuja central con efecto de inflado reducido */
+        .bubble-text:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        /* Burbuja central (texto) */
+        .bubble-text {
+            width: 320px;
+            height: 320px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            padding: 50px;
+        }
+
+        .bubble-text h2 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.5);
+            margin-bottom: 15px;
+            font-size: 1.6em;
+        }
+
+        .bubble-text p {
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            line-height: 1.5;
+            font-size: 1em;
+        }
+
+        /* Burbuja de imagen */
+        .bubble-image {
+            width: 180px;
+            height: 180px;
+            top: 0;
+            right: 0;
+            z-index: 2;
+        }
+
+        .bubble-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* Burbuja de botón */
+        .bubble-button {
+            width: 110px;
+            height: 110px;
+            bottom: 60px;
+            right: 40px;
+            z-index: 4;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+        }
+
+        .bubble-button:hover {
+            transform: scale(1.2);
+            box-shadow: 
+                0 15px 40px rgba(255, 20, 147, 0.6),
+                inset 0 -3px 10px rgba(255, 255, 255, 0.6);
+        }
+
+        .bubble-button span {
+            color: white;
+            font-size: 2.3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Modal expandido */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .expanded-content {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            max-width: 900px;
+            max-height: 85vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff99c8 100%);
+            border-radius: 30px;
+            padding: 50px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 
+                0 20px 60px rgba(255, 105, 180, 0.6),
+                inset 0 -3px 10px rgba(255, 255, 255, 0.6),
+                inset 0 3px 10px rgba(255, 105, 180, 0.4);
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .expanded-content.active {
+            display: block;
+            overflow-x: hidden
+        }
+
+        .expanded-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .expanded-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .expanded-inner h2 {
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(255, 20, 147, 0.5);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .expanded-inner img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .expanded-inner p {
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            line-height: 1.8;
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff1493;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(255, 20, 147, 0.5);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .close-btn:hover {
+            background: #ff69b4;
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .expanded-content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .expanded-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .expanded-content::-webkit-scrollbar-thumb {
+            background: #ff1493;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .bubble-cluster {
+                width: 320px;
+                height: 320px;
+            }
+
+            .bubble-text {
+                width: 200px;
+                height: 200px;
+            }
+
+            .bubble-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .bubble-button {
+                width: 75px;
+                height: 75px;
+            }
+
+            .bubble-button span {
+                font-size: 1.6em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="">
-        <h1>🍬 Mis Tarjetas Burbuja 🍬</h1>
+    <div class="container">
+        <h1>🍬 Clusters de Burbujas 🍬</h1>
         
-        <div class="cards-grid">
-            <div class="bubble-card" onclick="expandCard(this)">
-                <button class="close-btn" onclick="closeCard(event, this.parentElement)">×</button>
-                <div class="card-content">
-                    <h2>Tarjeta con Texto</h2>
-                    <p>Haz click para expandir y ver más contenido. Esta es una tarjeta con estilo de burbuja de chicle rosado.</p>
-                    <p style="display: none;">Este es contenido adicional que solo se muestra cuando la tarjeta está expandida. Puedes agregar toda la información que necesites aquí. ¡Es súper flexible y divertida!</p>
+        <div class="clusters-container">
+            <!-- Cluster 1 -->
+            <div class="bubble-cluster">
+                <div class="bubble bubble-text">
+                    <div>
+                        <h2>Naturaleza</h2>
+                        <p>Descubre la belleza natural del mundo. Paisajes increíbles te esperan en cada rincón del planeta.</p>
+                    </div>
+                </div>
+                <div class="bubble bubble-image">
+                    <img src="https://images.unsplash.com/photo-1499084732479-de2c02d45fcc?w=400" alt="Naturaleza">
+                </div>
+                <div class="bubble bubble-button" onclick="expandCluster(1)">
+                    <span>+</span>
                 </div>
             </div>
 
-            <div class="bubble-card" onclick="expandCard(this)">
-                <button class="close-btn" onclick="closeCard(event, this.parentElement)">×</button>
-                <div class="card-content">
-                    <h2>Tarjeta con Imagen</h2>
-                    <img src="https://images.unsplash.com/photo-1499084732479-de2c02d45fcc?w=600" alt="Imagen ejemplo">
+            <!-- Cluster 2 -->
+            <div class="bubble-cluster">
+                <div class="bubble bubble-text">
+                    <div>
+                        <h2>Flores</h2>
+                        <p>Colores vibrantes y aromas embriagadores. Las flores son el regalo perfecto de la naturaleza.</p>
+                    </div>
+                </div>
+                <div class="bubble bubble-image">
+                    <img src="https://images.unsplash.com/photo-1515041219749-89347f83291a?w=400" alt="Flores">
+                </div>
+                <div class="bubble bubble-button" onclick="expandCluster(2)">
+                    <span>+</span>
                 </div>
             </div>
 
-            <div class="bubble-card" onclick="expandCard(this)">
-                <button class="close-btn" onclick="closeCard(event, this.parentElement)">×</button>
-                <div class="card-content">
-                    <h2>Otra Tarjeta</h2>
-                    <p>¡Más contenido divertido! Estas tarjetas tienen un efecto suave y burbujeante.</p>
+            <!-- Cluster 3 -->
+            <div class="bubble-cluster">
+                <div class="bubble bubble-text">
+                    <div>
+                        <h2>Atardecer</h2>
+                        <p>Momentos mágicos que pintan el cielo. Cada atardecer cuenta una historia única y especial.</p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="bubble-card" onclick="expandCard(this)">
-                <button class="close-btn" onclick="closeCard(event, this.parentElement)">×</button>
-                <div class="card-content">
-                    <h2>Más Imágenes</h2>
-                    <img src="https://images.unsplash.com/photo-1515041219749-89347f83291a?w=600" alt="Otra imagen">
+                <div class="bubble bubble-image">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Atardecer">
+                </div>
+                <div class="bubble bubble-button" onclick="expandCluster(3)">
+                    <span>+</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal-overlay" id="overlay" onclick="closeAllCards()"></div>
+    <div class="modal-overlay" id="overlay" onclick="closeExpanded()"></div>
 
-    <script src="JS/burbujas.js"></script>
+    <!-- Contenido expandido 1 -->
+    <div class="expanded-content" id="expanded1">
+        <button class="close-btn" onclick="closeExpanded()">×</button>
+        <div class="expanded-inner">
+            <h2>Naturaleza</h2>
+            <img src="https://images.unsplash.com/photo-1499084732479-de2c02d45fcc?w=800" alt="Naturaleza">
+            <p>La naturaleza nos ofrece paisajes increíbles que nos conectan con el mundo natural. Cada rincón del planeta tiene su propia belleza única.</p>
+            <p>Explorar la naturaleza nos permite desconectar del estrés diario y encontrar paz interior. Los bosques, montañas y ríos nos recuerdan la importancia de preservar nuestro planeta.</p>
+        </div>
+    </div>
+
+    <!-- Contenido expandido 2 -->
+    <div class="expanded-content" id="expanded2">
+        <button class="close-btn" onclick="closeExpanded()">×</button>
+        <div class="expanded-inner">
+            <h2>Flores</h2>
+            <img src="https://images.unsplash.com/photo-1515041219749-89347f83291a?w=800" alt="Flores">
+            <p>Las flores aportan color y alegría a nuestras vidas. Cada especie tiene su propia personalidad y significado.</p>
+            <p>Desde los jardines más elaborados hasta las flores silvestres del campo, la naturaleza nos regala una paleta infinita de colores y aromas.</p>
+        </div>
+    </div>
+
+    <!-- Contenido expandido 3 -->
+    <div class="expanded-content" id="expanded3">
+        <button class="close-btn" onclick="closeExpanded()">×</button>
+        <div class="expanded-inner">
+            <h2>Atardecer</h2>
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" alt="Atardecer">
+            <p>Los atardeceres son uno de los espectáculos más hermosos que nos regala la naturaleza cada día.</p>
+            <p>Cada atardecer es único, con combinaciones de colores que van desde naranjas vibrantes hasta púrpuras suaves. Es el momento perfecto para reflexionar y agradecer.</p>
+        </div>
+    </div>
+
+    <script>
+        function expandCluster(clusterId) {
+            // Mostrar overlay
+            document.getElementById('overlay').classList.add('active');
+            
+            // Mostrar contenido expandido correspondiente
+            document.getElementById('expanded' + clusterId).classList.add('active');
+        }
+
+        function closeExpanded() {
+            // Ocultar overlay
+            document.getElementById('overlay').classList.remove('active');
+            
+            // Ocultar todos los contenidos expandidos
+            const expandedContents = document.querySelectorAll('.expanded-content');
+            expandedContents.forEach(content => {
+                content.classList.remove('active');
+            });
+        }
+
+        // Cerrar con tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeExpanded();
+            }
+        });
+    </script>
 </body>
 </html>
