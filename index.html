@@ -142,7 +142,7 @@
 
         /* Projects section */
         .projects {
-            padding: 80px 20px;
+            padding: 80px 0px;
         }
 
         .projects h2 {
@@ -177,8 +177,9 @@
             flex-direction: column;
             align-items: center;
             gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         .bubble-cluster {
@@ -191,12 +192,13 @@
         /* Patrón de escalera: izquierda-derecha alternado */
         .bubble-cluster:nth-child(odd) {
             align-self: flex-start;
-            margin-left: 2%;
+            margin-left: 0;
         }
 
         .bubble-cluster:nth-child(even) {
             align-self: flex-end;
-            margin-right: 2%;
+            margin-right: 0;
+            margin-top: -200px;
         }
 
         .bubble {
