@@ -1,5 +1,5 @@
-<!DOCTYPE html><!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,31 +7,340 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="../css/styles4.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff99c8 100%);
+            border-radius: 40px;
+            padding: 50px;
+            box-shadow: 
+                0 20px 60px rgba(255, 105, 180, 0.5),
+                inset 0 -5px 15px rgba(255, 255, 255, 0.5),
+                inset 0 5px 15px rgba(255, 105, 180, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 3rem;
+            text-shadow: 3px 3px 8px rgba(255, 20, 147, 0.5);
+            margin-bottom: 10px;
+        }
+
+        /* Mapa interactivo */
+        #map {
+            height: 500px;
+            border-radius: 30px;
+            margin: 30px 0;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 5px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            top: 80px;
+            left: 10px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
+        }
+
+        .basemap-preview {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .basemap-preview:hover {
+            transform: scale(1.05);
+        }
+
+        .basemap-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .basemap-menu {
+            position: absolute;
+            top: 10px;
+            left: 80px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+
+        .basemap-menu.active {
+            display: block;
+        }
+
+        .basemap-menu strong {
+            color: #ff1493;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .basemap-menu img {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .basemap-menu img:hover {
+            border-color: #ff1493;
+            transform: scale(1.1);
+        }
+
+        .content h2 {
+            color: #fff;
+            font-size: 2rem;
+            text-shadow: 2px 2px 6px rgba(255, 20, 147, 0.5);
+            margin: 30px 0 20px;
+            padding-left: 20px;
+            border-left: 5px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .content h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 5px rgba(255, 20, 147, 0.4);
+            margin: 25px 0 15px;
+        }
+
+        .content p {
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .content ul, .content ol {
+            margin: 20px 0;
+            padding-left: 40px;
+        }
+
+        .content ul li, .content ol li {
+            color: #fff;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            font-size: 1.05rem;
+        }
+
+        .content ul li::marker, .content ol li::marker {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .content strong {
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 700;
+        }
+
+        .content code {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 2px 8px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px solid rgba(255, 255, 255, 0.5);
+            text-align: center;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.6);
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            color: white;
+        }
+
+        .btn i {
+            margin-right: 10px;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #d946ef 0%, #f0abfc 100%);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #f0abfc 0%, #d946ef 100%);
+        }
+
+        /* Scrollbar personalizada */
+        body::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: #ff1493;
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background: #ff69b4;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                border-radius: 30px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .content h2 {
+                font-size: 1.5rem;
+            }
+
+            .content h3 {
+                font-size: 1.3rem;
+            }
+
+            .content p,
+            .content ul li,
+            .content ol li {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            #map {
+                height: 350px;
+            }
+
+            .footer {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-
     <div class="content">
         <div class="header">
             <h1>Proyecto 4</h1>
         </div>
         <div id="map">
-            <!--icono de desplegar no texto-->
             <button id="fullscreen-btn" class="fullscreen-btn"><i class="fas fa-expand"></i></button>
-            <!--vista previa de los mapas-->
             <div class="basemap-preview" onclick="toggleMenu()">
                 <img src="https://cartodb-basemaps-c.global.ssl.fastly.net/light_all/6/31/23.png" alt="Vista previa">
             </div>
             <div class="basemap-menu" id="basemapMenu">
-                <strong>Estilos de mapa</strong><br>
+                <strong>Estilos de mapa</strong>
                 <img src="https://cartodb-basemaps-c.global.ssl.fastly.net/light_all/6/31/23.png" alt="Claro" onclick="changeBaseMap('light')">
                 <img src="https://cartodb-basemaps-c.global.ssl.fastly.net/dark_all/6/31/23.png" alt="Oscuro" onclick="changeBaseMap('dark')">
                 <img src="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/6/31/23" alt="Satélite" onclick="changeBaseMap('satellite')">
             </div>
         </div>
+
         <h2>Análisis Territorial del Hábitat del Lobo</h2>
 
         <h3>Objetivos</h3>
@@ -85,12 +394,16 @@
             <li>Un título descriptivo y el nombre del autor.</li>
             <li>Una cuadrícula UTM.</li>
         </ul>
+
         <div class="footer">
-            <a href="../assets/Documents/4_ANALISIS_TERRITORIO.pdf" class="btn btn-secondary"><i class="fas fa-download"></i>Descargar Práctica</a>
-            <a href="../assets/Documents/RESULTADOS_LOBO.pdf" class="btn btn-primary"><i class="fas fa-download"></i>Descargar Resultados</a>
+            <a href="../assets/Documents/4_ANALISIS_TERRITORIO.pdf" class="btn btn-secondary">
+                <i class="fas fa-download"></i>Descargar Práctica
+            </a>
+            <a href="../assets/Documents/RESULTADOS_LOBO.pdf" class="btn">
+                <i class="fas fa-download"></i>Descargar Resultados
+            </a>
         </div>
     </div>
-
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
