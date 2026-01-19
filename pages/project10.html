@@ -1,202 +1,345 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto 10 - Detalles</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'IBM Plex Mono', monospace;
-            background-color: rgba(26, 26, 26, 0);
-            color: white;
-            margin: 0;
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+            min-height: 100vh;
             padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff99c8 100%);
+            border-radius: 40px;
+            padding: 50px;
+            box-shadow: 
+                0 20px 60px rgba(255, 105, 180, 0.5),
+                inset 0 -5px 15px rgba(255, 255, 255, 0.5),
+                inset 0 5px 15px rgba(255, 105, 180, 0.3);
+            position: relative;
             overflow: hidden;
-        }/* Scrollbar personalizada */
-        /* Scrollbar personalizada */
-        .container::-webkit-scrollbar {
-            width: 12px; /* Ancho de la barra de desplazamiento */
-        }
-
-        .container::-webkit-scrollbar-thumb {
-            background: #00d4ff; /* Color del "pulgar" (thumb) */
-            border-radius: 20px; /* Bordes completamente redondeados */
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.6); /* Efecto de flotante con sombra */
-            border: 3px solid rgba(26, 26, 26, 0.9); /* Espacio entre el thumb y el track */
-        }
-
-        .container::-webkit-scrollbar-thumb:hover {
-            background: #009ecc; /* Color al pasar el mouse */
-            box-shadow: 0 0 15px rgba(0, 156, 204, 0.8); /* Sombra más intensa al hacer hover */
-        }
-
-        .container::-webkit-scrollbar-track {
-            background: rgba(26, 26, 26, 0.9); /* Color del fondo del track */
-            border-radius: 20px; /* Bordes redondeados para el track */
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra interna para mayor profundidad */
-        }
-
-        /* Compatibilidad con otros navegadores */
-        .container {
-            scrollbar-width: thin; /* Hacer la barra más delgada */
-            scrollbar-color: #00d4ff rgba(26, 26, 26, 0.9); /* Colores para el thumb y track */
-        }
-
-
-
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: rgba(26, 26, 26, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-            overflow: auto;
             max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
         }
 
         .header {
-            background-color:  #00d4ff;
-            color: #ffffff;
-            padding: 30px;
             text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.5);
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin: 0;
+            color: #fff;
+            font-size: 3rem;
+            text-shadow: 3px 3px 8px rgba(255, 20, 147, 0.5);
+            margin-bottom: 10px;
         }
 
         .content {
-            padding: 30px;
-            line-height: 1.6;
+            color: #fff;
+            line-height: 1.8;
         }
 
-        .content iframe {
-            width: 100%;
-            height: 600px;
+        .content p {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .content ul {
+            margin: 20px 0;
+            padding-left: 40px;
+        }
+
+        .content ul li {
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            font-size: 1.05rem;
+        }
+
+        .content ul li::marker {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .content b {
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 700;
+        }
+
+        .content h2 {
+            color: #fff;
+            font-size: 2rem;
+            text-shadow: 2px 2px 6px rgba(255, 20, 147, 0.5);
+            margin: 30px 0 20px;
+            padding-left: 20px;
+            border-left: 5px solid rgba(255, 255, 255, 0.7);
+        }
+
+        /* Tabs personalizadas */
+        .nav-tabs {
             border: none;
-            overflow: hidden;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tabs .nav-item {
+            margin: 0;
         }
 
         .nav-tabs .nav-link {
-            color: #00d4ff;
-            background-color: rgba(0, 0, 0, 0.8);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
             border: none;
-            border-radius: 0;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-
-        .nav-tabs .nav-link i {
-            margin-right: 5px;
+        .nav-tabs .nav-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .nav-tabs .nav-link.active {
-            color: #1a1a1a;
-            background-color: #00d4ff;
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
+        }
+
+        .nav-tabs .nav-link i {
+            margin-right: 8px;
+        }
+
+        .tab-content {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* iframes */
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: white;
         }
 
         .footer {
-            background: #1a1a1a;
-            padding: 15px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px solid rgba(255, 255, 255, 0.5);
             text-align: center;
-            font-size: 0.9rem;
+        }
+
+        .footer p {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'IBM Plex Mono', monospace;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.6);
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
             color: white;
         }
 
-        .footer a {
-            color: #00d4ff;
-            text-decoration: none;
-            font-weight: bold;
+        .btn i {
+            margin-right: 10px;
         }
 
-        .footer a:hover {
-            text-decoration: underline;
+        /* Scrollbar personalizada */
+        .container::-webkit-scrollbar {
+            width: 12px;
         }
 
-        .footer .btn {
-            margin: 5px;
-            font-size: 0.9rem;
-            padding: 10px 20px;
-            border-radius: 5px;
-            background-color: #00d4ff;
-            color: #1a1a1a;
-            border: none;
+        .container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
         }
 
-        .footer .btn i {
-            margin-right: 5px;
+        .container::-webkit-scrollbar-thumb {
+            background: #ff1493;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.6);
         }
 
-        .footer .btn:hover {
-            background-color: #009ecc;
+        .container::-webkit-scrollbar-thumb:hover {
+            background: #ff69b4;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                border-radius: 30px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .content h2 {
+                font-size: 1.5rem;
+            }
+
+            .content p,
+            .content ul li {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+                display: block;
+                margin: 10px 0;
+            }
+
+            iframe {
+                height: 400px;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tabs .nav-link {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- Header del Proyecto -->
-    <div class="header">
-        <h1>Proyecto 10 - Detalles</h1>
+    <div class="content-wrapper">
+        <div class="header">
+            <h1>Proyecto 10 - Detalles</h1>
+        </div>
 
-    </div>
+        <div class="content">
+            <p>
+                El Proyecto 10 tiene como objetivo principal enseñar a los estudiantes a utilizar la plataforma de Google Earth Engine,
+                permitiendo que, de manera autónoma, obtengan los valores del Índice Medioambiental asignado a partir de datos
+                de dos constelaciones de satélites.
+            </p>
+            <p>
+                <b>Resultados esperados:</b>
+            </p>
+            <ul>
+                <li>Desarrollar un WebMapping con los índices calculados.</li>
+                <li>Exportar las imágenes en formato GeoTIFF a Google Drive de la zona de estudio.</li>
+            </ul>
+            <p>
+                Este proyecto tiene como fin facilitar la visualización y análisis de datos medioambientales, optimizando la toma de decisiones
+                y fomentando el aprendizaje práctico con herramientas avanzadas de procesamiento geoespacial.
+            </p>
 
-    <!-- Contenido principal: Tabs con iframes -->
-    <div class="content">
-        <p>
-            El Proyecto 10 tiene como objetivo principal enseñar a los estudiantes a utilizar la plataforma de Google Earth Engine,
-            permitiendo que, de manera autónoma, obtengan los valores del Índice Medioambiental asignado a partir de datos
-            de dos constelaciones de satélites.
-        </p>
-        <p>
-            <b>Resultados esperados:</b>
-        </p>
-        <ul>
-            <li>Desarrollar un WebMapping con los índices calculados.</li>
-            <li>Exportar las imágenes en formato GeoTIFF a Google Drive de la zona de estudio.</li>
-        </ul>
-        <p>
-            Este proyecto tiene como fin facilitar la visualización y análisis de datos medioambientales, optimizando la toma de decisiones
-            y fomentando el aprendizaje práctico con herramientas avanzadas de procesamiento geoespacial.
-        </p>
-        <h2>Visualizaciones Interactivas</h2>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="mndwi-tab" data-bs-toggle="tab" data-bs-target="#mndwi" type="button" role="tab" aria-controls="mndwi" aria-selected="true"><i class="fas fa-map"></i>Sentinel2</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="ndwi-tab" data-bs-toggle="tab" data-bs-target="#ndwi" type="button" role="tab" aria-controls="ndwi" aria-selected="false"><i class="fas fa-map"></i>Landsat8</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="ndwSento-tab" data-bs-toggle="tab" data-bs-target="#ndwSento" type="button" role="tab" aria-controls="ndwSento" aria-selected="false"><i class="fas fa-book"></i>Cuadernillo</button>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="mndwi" role="tabpanel" aria-labelledby="mndwi-tab">
-                <iframe src="MNDWISentinel2prac10.html" title="Sentinel2"></iframe>
-            </div>
-            <div class="tab-pane fade" id="ndwi" role="tabpanel" aria-labelledby="ndwi-tab">
-                <iframe id="ndwi-iframe" src="about:blank" title="Landsat8"></iframe>
-            </div>
-            <div class="tab-pane fade" id="ndwSento" role="tabpanel" aria-labelledby="ndwi-tab">
-                <iframe id="ndw-iframe" src="about:blank" title="Landsat8"></iframe>
+            <h2>Visualizaciones Interactivas</h2>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="mndwi-tab" data-bs-toggle="tab" data-bs-target="#mndwi" type="button" role="tab" aria-controls="mndwi" aria-selected="true">
+                        <i class="fas fa-map"></i> Sentinel2
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="ndwi-tab" data-bs-toggle="tab" data-bs-target="#ndwi" type="button" role="tab" aria-controls="ndwi" aria-selected="false">
+                        <i class="fas fa-map"></i> Landsat8
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="ndwSento-tab" data-bs-toggle="tab" data-bs-target="#ndwSento" type="button" role="tab" aria-controls="ndwSento" aria-selected="false">
+                        <i class="fas fa-book"></i> Cuadernillo
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="mndwi" role="tabpanel" aria-labelledby="mndwi-tab">
+                    <iframe src="MNDWISentinel2prac10.html" title="Sentinel2"></iframe>
+                </div>
+                <div class="tab-pane fade" id="ndwi" role="tabpanel" aria-labelledby="ndwi-tab">
+                    <iframe id="ndwi-iframe" src="about:blank" title="Landsat8"></iframe>
+                </div>
+                <div class="tab-pane fade" id="ndwSento" role="tabpanel" aria-labelledby="ndwSento-tab">
+                    <iframe id="ndw-iframe" src="about:blank" title="Cuadernillo"></iframe>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Footer: Descargas -->
-    <div class="footer">
-        <p>Descargas disponibles:</p>
-        <a href="../contents/NDWI_Sentoprac10resuelta.ipynb" class="btn"><i class="fas fa-download"></i>Descargar Cuadernillo</a>
-        <a href="./MNDWI_Landsat8.tif" class="btn"><i class="fas fa-download"></i>Descargar TIFF Landsat8</a>
-        <a href="./MNDWI_Sentinel2.tif" class="btn"><i class="fas fa-download"></i>Descargar TIFF Sentinel2</a>
+        <div class="footer">
+            <p>Descargas disponibles:</p>
+            <a href="../contents/NDWI_Sentoprac10resuelta.ipynb" class="btn">
+                <i class="fas fa-download"></i> Descargar Cuadernillo
+            </a>
+            <a href="./MNDWI_Landsat8.tif" class="btn">
+                <i class="fas fa-download"></i> Descargar TIFF Landsat8
+            </a>
+            <a href="./MNDWI_Sentinel2.tif" class="btn">
+                <i class="fas fa-download"></i> Descargar TIFF Sentinel2
+            </a>
+        </div>
     </div>
 </div>
 
@@ -207,12 +350,10 @@
     });
     document.getElementById('ndwi-tab').addEventListener('shown.bs.tab', function () {
         document.getElementById('ndwi-iframe').src = 'MNDWILandsat8prac10.html';
-
     });
     document.getElementById('ndwSento-tab').addEventListener('shown.bs.tab', function () {
         document.getElementById('ndw-iframe').src = './cuadernillos/NDWI_Sento.html';
     });
-
 </script>
 </body>
 </html>
