@@ -1,5 +1,5 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js";
-  const pdfUrl = "../assets/Documents/PRECIPITACIONES_TEMPERATURAS_MAPA.pdf";
+  const pdfUrl = "assets/loqpiden/TEMPERATURAS.pdf";
   let pdfDoc = null, pageNum = 1, scale = 1.5, canvas = document.getElementById('pdf-canvas'), ctx = canvas.getContext('2d');
   pdfjsLib.getDocument(pdfUrl).promise.then((doc) => {
     pdfDoc = doc;
