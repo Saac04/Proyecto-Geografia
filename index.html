@@ -24,6 +24,7 @@
             background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
             min-height: 100vh;
             overflow-x: hidden;
+            padding-bottom: 20px;
         }
 
         /* Navbar styles */
@@ -414,12 +415,40 @@
         }
 
         /* Footer */
-        footer {
-            background: #212529;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 80px;
+        .footer {
+            background: #ab64f1;                    /* Fondo morado/rosa */
+            padding: 15px;                          /* Espaciado interno */
+            text-align: center;                     /* Texto centrado */
+            font-size: 0.9rem;                      /* Tamaño de fuente */
+            color: white;                           /* Color del texto */
+            margin-top: 30px;                       /* Margen superior */
+            border-radius: 10px;                    /* Bordes redondeados */
+            margin-left: 70px;                      /* Margen izquierdo */
+            margin-right: 70px;                     /* Margen derecho */
+        }
+
+        .footer a {
+            color: #ffb9e9;                         /* Color rosa claro para enlaces */
+            text-decoration: none;                  /* Sin subrayado */
+            font-weight: bold;                      /* Texto en negrita */
+        }
+
+        .footer a:hover {
+            text-decoration: underline;             /* Subrayado al hover */
+        }
+
+        .footer .btn {
+            margin: 5px;                            /* Margen entre botones */
+            font-size: 0.9rem;                      /* Tamaño de fuente botones */
+            padding: 10px 20px;                     /* Espaciado botones */
+            border-radius: 5px;                     /* Bordes redondeados botones */
+            background-color: #ffffff;              /* Fondo blanco */
+            color: #1a1a1a;                         /* Texto oscuro */
+            border: none;                           /* Sin borde */
+        }
+
+        .footer .btn:hover {
+            background-color: #009ecc;              /* Color al hover */
         }
 
         @keyframes fadeIn {
@@ -643,9 +672,10 @@
     <iframe src=""></iframe>
 </div>
 
-<footer>
-    <p>© 2024 Sento Marcos Ibarra y Javier Rupérez Miranda. Todos los derechos reservados.</p>
-</footer>
+<div class="footer">
+    <p>Proyecto de Cartografía - 2026</p>
+    <a href="#">Política de Privacidad</a> | <a href="#">Términos de Uso</a>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
